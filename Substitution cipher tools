@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+char alphabet[] = "abcdefghijklmnopqrstuvwxyz";
+char key[] =      "qwertyuiopasdfghjklzxcvbnm";
+
+void encrypt(char text[]) {
+    for (int i = 0; i < strlen(text); i++) {
+        char ch = text[i];
+
+        if (isalpha(ch)) {
+            char lower = tolower(ch);
+
+            for (int j = 0; j < 26; j++) {
+                if (lower == alphabet[j]) {
+                    char newChar = key[j];
+
+                    if (isupper(ch)) {
+                        text[i] = toupper(newChar);
+                    } else {
+                        text[i] = newChar;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+}
+
+int main() {
+    char text[200];
+
+    printf("Enter message: ");
+    fgets(text, sizeof(text), stdin);
+
+    // remove newline if present
+    text[strcspn(text, "\n")] = 0;
+
+    encrypt(text);
+
+    printf("Encrypted message: %s\n", text);
+
+    return 0;
+}
