@@ -1,0 +1,56 @@
+#include <stdio.h>
+
+#define MAX 10
+
+// Define structure for packet
+struct Packet {
+    int serial;
+    int priority;
+};
+
+int main() {
+    struct Packet packets[MAX];
+    int n;
+
+    // Get number of packets
+    printf("Enter number of packets (max 10): ");
+    scanf("%d", &n);
+
+    // Validate input
+    if(n > MAX || n <= 0) {
+        printf("Invalid number of packets.\n");
+        return 1;
+    }
+
+    // Input packets
+    for(int i = 0; i < n; i++) {
+        printf("Enter serial number and priority for packet %d: ", i + 1);
+        scanf("%d %d", &packets[i].serial, &packets[i].priority);
+    }
+
+    // Sorting logic (priority first, then serial)
+    for(int i = 0; i < n - 1; i++) {
+        for(int j = i + 1; j < n; j++) {
+
+            if(packets[i].priority > packets[j].priority ||
+              (packets[i].priority == packets[j].priority &&
+               packets[i].serial > packets[j].serial)) {
+
+                // Swap packets
+                struct Packet temp = packets[i];
+                packets[i] = packets[j];
+                packets[j] = temp;
+            }
+        }
+    }
+
+    // Output sorted serial numbers
+    printf("\nSorted packet serial numbers:\n");
+    for(int i = 0; i < n; i++) {
+        printf("%d ", packets[i].serial);
+    }
+
+    printf("\n");
+
+    return 0;
+}
