@@ -1,0 +1,21 @@
+# Secret number
+secret_number = 7
+
+# Player guess
+guess = 0
+
+# Loop continues until player guesses correctly
+while guess != secret_number:
+
+    # Ask user for a number
+    guess = int(input("Guess a number between 1 and 20: "))
+
+    # Check the guess
+    if guess > secret_number:
+        print("Too high! Try again.")
+
+    elif guess < secret_number:
+        print("Too low! Try again.")
+
+    else:
+        print("Congratulations! You guessed the correct number!")
